@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"  //tells heroku how to start app
+    "start": "node server.js"
   },
   "author": "jb",
   "license": "MIT",
