@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 3000;  //now heroku can pass to the PORT
 
 //express middleware, direct https traffic to http
 app.use(function(req, res, next) {
-  if(req.protocol === 'http') {
+  if (req.headers['x-forwarded-proto'] === 'http') {
     next();  //request process, return file to browser
   }else{
     res.redirect('http://' + req.hostname + req.url); //redirect here
