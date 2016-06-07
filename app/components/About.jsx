@@ -11,7 +11,10 @@ var React = require('react');
 //improved statless component
 var About = (props) => {
   return (
-    <h3>About Component</h3>
+    <div>
+      <h3>About Component</h3>
+      <p>Welcome to my simple About page!</p>
+    </div>
   )
 };
 

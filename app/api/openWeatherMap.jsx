@@ -8,7 +8,7 @@ module.exports = {
     var requestURL = `${OPEN_WEATHER_MAP_URL}&q=${encodedLocation}`;//template strings (es6 feature)
 
     return axios.get(requestURL).then(function (res) {  //res stores result coming back from api
-      debugger;
+  
       if (res.data.cod && res.data.message) {  //if exists
         throw new Error(res.data.message);
       } else {
