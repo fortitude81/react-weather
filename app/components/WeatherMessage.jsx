@@ -15,7 +15,7 @@ var WeatherMessage = ({temp, location}) => {
   // var {temp, location} = props;  //dont need because destructuring above instead of props
 
   return (
-    <h3>It's it {temp} in {location}.</h3>
+    <h3 className="text-center">It's it {temp} in {location}.</h3>
   )
 };
 
