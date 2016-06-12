@@ -1,6 +1,8 @@
 //resusable component, can put anywhere in app and show modal with a Title and Message
 
 var React = require('react');
+var ReactDOM = require('react-dom');
+var ReactDOMServer = require('react-dom/server');
 
 var ErrorModal = React.createClass({
   //set default type for title
@@ -16,13 +18,9 @@ var ErrorModal = React.createClass({
   },
   //automatically called by React after DOM updated with whatever have in render function, here to open modal
   componentDidMount: function() {  //using Foundation.Reveal
-    var modal = new Foundation.Reveal($('#error-modal')); //$ from webpack.config
-    modal.open();
-  },
-  render: function () {
     var {title, message} = this.props;//pull props off this.props using es6 destructuring
 
-    return (
+    var modalMarkup =  (
       <div id="error-modal" className="reveal tiny text-center" data-reveal="">
         <h4>{title}</h4>
         <p>{message}</p>
@@ -33,6 +31,22 @@ var ErrorModal = React.createClass({
         </p>
       </div>
     );
+
+    var $modal = $(ReactDOMServer.renderToString(modalMarkup));
+    $(ReactDOM.findDOMNode(this)).html($modal);  //add into component itself
+
+    var modal = new Foundation.Reveal($('#error-modal')); //$ from webpack.config
+    modal.open();
+  },
+  render: function () {
+    var {title, message} = this.props;//pull props off this.props using es6 destructuring
+
+    return (    //since Foundation is going to manipulate DOM, we wanna start with no DOM at all
+      <div>
+
+      </div>
+    );
+
   }
 });
 
