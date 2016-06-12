@@ -11,11 +11,13 @@ var Weather = React.createClass({
     }
   },
   handleSearch: function (location) {
-    var that = this;  //enables to access this keywork after create new funciotn below
+    var that = this;  //enables to access this keyword after create new funciotn below
 
     this.setState({
       isLoading: true,
-      errorMessage: undefined
+      errorMessage: undefined,
+      location: undefined,  //clear data when make a search
+      temp: undefined       //clear data when make a search
     });
 
     openWeatherMap.getTemp(location).then(function (temp) {  //should return a promise
@@ -31,6 +33,23 @@ var Weather = React.createClass({
       });
       // alert(errorMessage); git rid of alert becuse using modal now
     });
+  },
+  //run search when component get started in browser and theres a proper location
+  componentDidMount: function() {
+    var location = this.props.location.query.location;//pull out location string from query and location object
+
+    if (location && location.length > 0) {
+      this.handleSearch(location);
+      window.location.hash = '#/';  //remove location url
+    }
+  },
+  componentWillReceiveProps: function (newProps) {
+    var location = newProps.location.query.location;
+
+    if (location && location.length > 0) {
+      this.handleSearch(location);
+      window.location.hash = '#/';  //remove location url
+    }
   },
   render: function () {
     var {isLoading, temp, location, errorMessage} = this.state;  //pull out of state using destructuring
