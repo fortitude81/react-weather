@@ -1,6 +1,7 @@
 var React = require('react');
 var WeatherForm = require('WeatherForm');
 var WeatherMessage = require('WeatherMessage');
+var ErrorModal = require('ErrorModal');
 var openWeatherMap = require('openWeatherMap');
 
 var Weather = React.createClass({
@@ -11,7 +12,11 @@ var Weather = React.createClass({
   },
   handleSearch: function (location) {
     var that = this;  //enables to access this keywork after create new funciotn below
-    this.setState({isLoading: true});
+
+    this.setState({
+      isLoading: true,
+      errorMessage: undefined
+    });
 
     openWeatherMap.getTemp(location).then(function (temp) {  //should return a promise
       that.setState({
@@ -19,13 +24,16 @@ var Weather = React.createClass({
         temp: temp,
         isLoading: false
       });
-    }, function (errorMessage) {
-      that.setState({isLoading: false});
-      alert(errorMessage);
+    }, function (e) {
+      that.setState({
+        isLoading: false,
+        errorMessage: e.message
+      });
+      // alert(errorMessage); git rid of alert becuse using modal now
     });
   },
   render: function () {
-    var {isLoading, temp, location} = this.state;
+    var {isLoading, temp, location, errorMessage} = this.state;  //pull out of state using destructuring
 
     function renderMessage () {
       if (isLoading) {
@@ -35,11 +43,20 @@ var Weather = React.createClass({
       }
     }
 
+    function renderError () {
+      if (typeof errorMessage === 'string') {
+        return (  //specifiy message prop set = to jsx expression
+          <ErrorModal message={errorMessage}/>
+        )
+      }
+    }
+
     return (
       <div>
         <h1 className="text-center">Get Weather</h1>
         <WeatherForm onSearch={this.handleSearch}/>
         {renderMessage()}
+        {renderError()}
       </div>
     )
   }
