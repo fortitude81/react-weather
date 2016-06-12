@@ -1,0 +1,14 @@
+$space-large: 2.5rem; //create variable here
+$title-color: #555;
+
+.page-title {
+  color: $title-color;
+  margin-top: $space-large;
+  margin-bottom: $space-large;
+}
+
+/*select all inputs where type is = to search
+update the box shadow property*/
+input[type=search] {
+  box-shadow: none;
+}

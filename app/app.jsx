@@ -12,7 +12,7 @@ require('style!css!foundation-sites/dist/foundation.min.css')
 $(document).foundation();  //fire up foundation
 
 //App css
-require('style!css!applicationStyles')
+require('style!css!sass!applicationStyles')
 
 ReactDOM.render(                    //most common react DOM method to render to screen
   <Router history={hashHistory}>
