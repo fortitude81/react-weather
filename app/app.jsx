@@ -11,6 +11,8 @@ var Examples = require('Examples');
 require('style!css!foundation-sites/dist/foundation.min.css')
 $(document).foundation();  //fire up foundation
 
+//App css
+require('style!css!applicationStyles')
 
 ReactDOM.render(                    //most common react DOM method to render to screen
   <Router history={hashHistory}>
